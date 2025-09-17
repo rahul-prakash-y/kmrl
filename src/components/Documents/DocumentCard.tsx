@@ -36,7 +36,7 @@ const DocumentCard: React.FC<DocumentCardProps> = ({ document, onView, onDownloa
               <FileText className="h-8 w-8 text-gray-400" />
             </div>
             <div className="flex-1 min-w-0">
-              <h3 className="text-lg font-medium text-gray-900 truncate">{document.title}</h3>
+              <h3 className="text-lg font-medium text-gray-900 truncate w-[200px]">{document.title}</h3>
               <p className="text-sm text-gray-600 mt-1">{document.type}</p>
             </div>
           </div>
