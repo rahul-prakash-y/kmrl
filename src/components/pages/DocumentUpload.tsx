@@ -1,26 +1,54 @@
+
 import React, { useState } from 'react';
 import { Send, Tag, Globe, Building } from 'lucide-react';
 import FileUpload from '../Upload/FileUpload';
+import apiClient from '../../api/apiClient';
 
 const DocumentUpload: React.FC = () => {
+  const [files, setFiles] = useState<File[]>([]);
   const [uploadForm, setUploadForm] = useState({
     title: '',
-    type: '',
     department: '',
-    language: 'english',
+    language: 'English', // Match schema values
     tags: '',
-    description: ''
   });
 
-  const handleFileUpload = (files: File[]) => {
-    console.log('Files uploaded:', files);
-    // Here you would typically send files to your backend
+  const handleFileUpload = (uploadedFiles: File[]) => {
+    setFiles(uploadedFiles);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', uploadForm);
-    // Here you would process the form data
+    if (files.length === 0) {
+      alert('Please select a file to upload.');
+      return;
+    }
+
+    // Use FormData to send file and text data together
+    const formData = new FormData();
+    formData.append('document', files[0]); // 'document' must match the backend multer field name
+    formData.append('title', uploadForm.title);
+    formData.append('department', uploadForm.department);
+    formData.append('language', uploadForm.language);
+    formData.append('tags', uploadForm.tags);
+
+    try {
+      const response = await apiClient.post('/documents/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      if (response.data.success) {
+        alert('File uploaded successfully!');
+        // Reset form
+        setFiles([]);
+        setUploadForm({ title: '', department: '', language: 'English', tags: '' });
+      }
+    } catch (error) {
+      console.error('File upload failed:', error);
+      alert('File upload failed. Please try again.');
+    }
   };
 
   const departments = [

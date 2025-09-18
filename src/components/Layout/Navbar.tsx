@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import { Bell, Search, User, LogOut, Settings, ChevronDown } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
 import { mockAlerts } from '../../data/mockData';
 
-const Navbar: React.FC = () => {
+const Navbar = ({setIsRoleChange,isRoleChange}:{setIsRoleChange?: (i:boolean)=> void;isRoleChange?: boolean;}) => {
   const { user, logout } = useAuth();
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const unreadAlerts = mockAlerts.filter(alert => !alert.isRead).length;
@@ -64,7 +64,9 @@ const Navbar: React.FC = () => {
             {/* Profile Menu */}
             <div className="relative">
               <button
-                onClick={() => setShowProfileMenu(!showProfileMenu)}
+                onClick={() => {
+                  setShowProfileMenu(!showProfileMenu)
+                }}
                 className="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">

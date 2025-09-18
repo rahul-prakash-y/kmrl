@@ -24,7 +24,7 @@ const RoleSelector: React.FC = () => {
             <button
               key={role.value}
               onClick={() => switchRole(role.value)}
-              className={`w-full text-left px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+              className={`w-fit text-left px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                 user?.role === role.value
                   ? role.color
                   : 'text-gray-700 hover:bg-gray-50'
