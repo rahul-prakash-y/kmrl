@@ -1,5 +1,5 @@
 export interface User {
-  id: string;
+  id: string; // Corresponds to _id from MongoDB
   name: string;
   email: string;
   role: UserRole;

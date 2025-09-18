@@ -12,6 +12,7 @@ const DocumentUpload: React.FC = () => {
     language: 'English', // Match schema values
     tags: '',
   });
+  console.log("uploadForm",uploadForm);
 
   const handleFileUpload = (uploadedFiles: File[]) => {
     setFiles(uploadedFiles);
@@ -151,7 +152,7 @@ const DocumentUpload: React.FC = () => {
                 {[
                   { value: 'english', label: 'English' },
                   { value: 'malayalam', label: 'Malayalam' },
-                  { value: 'both', label: 'Both' }
+                  { value: 'mixed', label: 'Both' }
                 ].map(lang => (
                   <label key={lang.value} className="flex items-center">
                     <input
